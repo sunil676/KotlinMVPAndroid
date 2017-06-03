@@ -1,2 +1,6 @@
 # KotlinMVPAndroid
-Exploring MVP by using Retrofit, RxJava, Anko, and Dagger
+Exploring MVP in Koltin. Used features below.
+. Kotlin
+. RxJava
+. Dagger2
+. Anko - Sqlite
