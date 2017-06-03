@@ -1,0 +1,68 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "com.mobologicplus.kotlinmvpandroid"
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile "com.android.support:appcompat-v7:$support_version"
+    testCompile 'junit:junit:4.12'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+    compile 'com.jakewharton:butterknife:8.0.1'
+    kapt 'com.jakewharton:butterknife-compiler:8.0.1'
+
+    // Anko for SQLite
+    compile "org.jetbrains.anko:anko-sqlite:$anko_version"
+
+    // RX
+    compile "io.reactivex.rxjava2:rxjava:$rxjava2_version"
+    compile "io.reactivex.rxjava2:rxandroid:$rxjava2_version"
+
+    // Retrofit + GSON + Interceptor
+    compile "com.squareup.retrofit2:retrofit:$retrofit_version"
+    compile "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    compile "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
+
+    // Timber
+    compile 'com.jakewharton.timber:timber:4.5.1'
+
+    // Dagger 2
+    compile "com.google.dagger:dagger:$dagger_version"
+    annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+
+    compile "com.android.support:recyclerview-v7:$support_version"
+    compile "com.android.support:cardview-v7:$support_version"
+    compile "com.android.support:design:$support_version"
+
+
+}
+repositories {
+    mavenCentral()
+}
+
+kapt {
+    generateStubs = true
+}
