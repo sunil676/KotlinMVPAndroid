@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -37,8 +38,12 @@ class FriendsAdapter(private val context: Context, private val friendsList: Muta
         holder.delete!!.setOnClickListener {
             friendsList.remove(friends)
             notifyItemRemoved(position)
-            listener.itemRemoveClick(friends.id!!.toInt())
+            listener.itemRemoveClick(friends)
         }
+        holder.relative!!.setOnClickListener {
+            listener.itemDetail(friends.id!!)
+        }
+
     }
 
     override fun getItemCount(): Int {
@@ -52,6 +57,8 @@ class FriendsAdapter(private val context: Context, private val friendsList: Muta
         @JvmField var email: TextView? = null
         @BindView(R.id.delete)
         @JvmField var delete: ImageView? = null
+        @BindView(R.id.relative)
+        @JvmField var relative: RelativeLayout? = null
         init {
             ButterKnife.bind(this, itemView)
         }
@@ -59,6 +66,7 @@ class FriendsAdapter(private val context: Context, private val friendsList: Muta
     }
 
     interface onItemClickListener {
-        fun itemRemoveClick(position: Int)
+        fun itemRemoveClick(user: Friends.User)
+        fun itemDetail(userId : String)
     }
 }

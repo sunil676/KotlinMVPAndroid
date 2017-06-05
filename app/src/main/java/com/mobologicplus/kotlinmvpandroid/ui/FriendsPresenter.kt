@@ -18,8 +18,8 @@ class FriendsPresenter : FriendsContract.Presenter{
     private lateinit var view: FriendsContract.View
 
     override fun loadFriendsDb() {
-       // var observableFriends = DbManager().loadFriends();
-        //updateView(observableFriends, false)
+        var observableFriends = DbManager().loadFriends();
+        updateViewFromDb(observableFriends)
     }
 
     override fun loadFriendsAPI() {
@@ -28,6 +28,12 @@ class FriendsPresenter : FriendsContract.Presenter{
 
     override fun loadDetailFriend(ignoreCache: Boolean) {
 
+    }
+
+    override fun deleteItem(user: Friends.User) {
+        var observableBoolean  = DbManager().deleteFriend(user)
+        var subscribe = observableBoolean.subscribe ({t : Boolean -> view.deletedItem(t!!)},{t: Throwable -> view.showLoadErrorMessage(t.message!!)})
+        subscriptions.add(subscribe)
     }
 
     override fun attachView(view: FriendsContract.View) {
@@ -61,9 +67,22 @@ class FriendsPresenter : FriendsContract.Presenter{
                                DbManager().saveFriendsList(users)
                            }
                        }
-                       view.onLoadFriendsOk(listUsers!!)}},
-                       { t: Throwable? -> view.showEmptyView(true)})
+
+                       view.onLoadFriendsOk(listUsers!!)
+                       view.showProgress(false)}},
+                       { t: Throwable? -> view.showEmptyView(true)
+                           view.showProgress(false)})
                        subscriptions.add(subscribe)
         }
+
+    fun updateViewFromDb( observableFriends: Observable<List<Friends.User>>){
+        var subscribe =  observableFriends.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({listUsers: List<Friends.User>? ->
+                    view.onLoadFriendsOk(listUsers!!)
+                   },
+                        { t: Throwable? -> view.showEmptyView(true)})
+        subscriptions.add(subscribe)
+    }
 
 }

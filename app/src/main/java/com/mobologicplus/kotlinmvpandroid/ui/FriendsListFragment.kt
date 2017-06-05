@@ -7,7 +7,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.ProgressBar
+import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.mobologicplus.kotlinmvpandroid.R
@@ -16,6 +17,10 @@ import javax.inject.Inject
 import com.mobologicplus.kotlinmvpandroid.db.DbManager
 import com.mobologicplus.kotlinmvpandroid.inject.component.DaggerFriendsComponent
 import com.mobologicplus.kotlinmvpandroid.inject.module.FriendsModule
+import com.mobologicplus.kotlinmvpandroid.util.ActivityUtil
+import android.R.attr.fragment
+
+
 
 
 /**
@@ -30,6 +35,9 @@ class FriendsListFragment : Fragment(), FriendsContract.View, FriendsAdapter.onI
     @BindView(R.id.recyclerview)
     @JvmField var recyclerView: RecyclerView? = null
 
+    @BindView(R.id.progressbar)
+    @JvmField var progressbar : ProgressBar? = null
+
     fun newInstance(): FriendsListFragment {
         return FriendsListFragment()
     }
@@ -41,7 +49,6 @@ class FriendsListFragment : Fragment(), FriendsContract.View, FriendsAdapter.onI
     }
 
     private fun injectDependency() {
-     //   val applicationComponent = (activity.application as MainApplication).getApplicationComponent()
         val friendsComponent = DaggerFriendsComponent.builder()
                 .friendsModule(FriendsModule())
                 .build()
@@ -59,13 +66,14 @@ class FriendsListFragment : Fragment(), FriendsContract.View, FriendsAdapter.onI
 
     fun initView(){
         // check the data available in db then do not call retrofit for data
-       // presenter.loadFriendsAPI();
         var count = DbManager().getCount()
         if (count == 0) {
             // call retrofit
-           presenter.loadFriendsAPI();
+            progressbar!!.setVisibility(View.VISIBLE)
+            presenter.loadFriendsAPI();
         }else{
             // call db
+            progressbar!!.setVisibility(View.GONE)
             presenter.loadFriendsDb()
         }
 
@@ -89,18 +97,40 @@ class FriendsListFragment : Fragment(), FriendsContract.View, FriendsAdapter.onI
     }
 
     override fun showProgress(show: Boolean) {
-
+        if (!show){
+            progressbar!!.setVisibility(View.GONE)
+        }
     }
 
     override fun showLoadErrorMessage(error: String) {
-
+        showToast(error)
     }
 
     override fun showEmptyView(visible: Boolean) {
-
+        showToast("No Item")
     }
 
-    override fun itemRemoveClick(position: Int) {
+    override fun deletedItem(isDeleted: Boolean) {
+        if (isDeleted){
+            showToast("Item Deleted")
+        }else{
+            showToast("Did not Item Deleted")
+        }
+    }
 
+    override fun itemRemoveClick(user: Friends.User) {
+       presenter.deleteItem(user)
+    }
+
+    fun showToast(message : String){
+        Toast.makeText(activity, message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun itemDetail(userId: String) {
+        val friendsDetailFragment = FriendsDetailFragment().newInstance()
+        val bundle = Bundle()
+        bundle.putString("UserId", userId)
+        friendsDetailFragment.setArguments(bundle)
+        ActivityUtil().addFragmentToActivity(fragmentManager, friendsDetailFragment, R.id.frame, "FriendsDetailFragment")
     }
 }

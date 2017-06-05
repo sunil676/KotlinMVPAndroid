@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">KotlinMVPAndroid</string>
+    <string name="name">Name</string>
+    <string name="email">email</string>
 </resources>

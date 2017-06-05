@@ -13,14 +13,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         injectDependency()
-        ActivityUtil().addFragmentToActivity(getFragmentManager(), FriendsListFragment().newInstance(), R.id.frame, "")
+        ActivityUtil().addFragmentToActivity(fragmentManager, FriendsListFragment().newInstance(), R.id.frame, "FriendsListFragment")
     }
 
     private fun injectDependency() {
-        val applicationComponent = (application as MainApplication).getApplicationComponent()
         val activityComponent = DaggerActivityComponent.builder()
                 .activityModule(ActivityModule(this))
                 .build()
         activityComponent.inject(this)
+    }
+
+    override fun onBackPressed() {
+        if (fragmentManager.backStackEntryCount > 1) {
+            fragmentManager.popBackStack();
+        } else {
+            super.onBackPressed();
+        }
     }
 }

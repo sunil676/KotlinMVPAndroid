@@ -12,6 +12,7 @@ class FriendsContract {
         fun loadFriendsAPI()
         fun loadFriendsDb()
         fun loadDetailFriend(ignoreCache : Boolean)
+        fun deleteItem(user : Friends.User)
     }
 
     interface View : BaseContract.View{
@@ -19,5 +20,7 @@ class FriendsContract {
         fun showProgress(show : Boolean)
         fun showLoadErrorMessage(error : String)
         fun showEmptyView(visible : Boolean)
+        fun deletedItem(isDeleted : Boolean)
+
     }
 }

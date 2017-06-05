@@ -12,7 +12,7 @@ interface DbSource {
 
     fun loadFriends() : Observable<List<Friends.User>>
 
-    fun detailFriend(friendsId : Int) : Observable<Friends.User>
+    fun detailFriend(friendsId : String) : Observable<Friends.User>
 
     fun deleteFriend(friends: Friends.User) : Observable<Boolean>
 }

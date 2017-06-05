@@ -1,6 +1,5 @@
 package com.mobologicplus.kotlinmvpandroid.api
 
-import com.mobologicplus.kotlinmvpandroid.db.FriendsMapper
 import com.mobologicplus.kotlinmvpandroid.model.Friends
 import io.reactivex.Observable
 import retrofit2.http.GET

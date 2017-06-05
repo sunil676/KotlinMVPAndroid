@@ -4,23 +4,33 @@
     android:layout_height="wrap_content"
     android:padding="10dp">
 
-    <TextView
-        android:id="@+id/name"
-        android:text="Name"
-        android:textStyle="bold"
+    <RelativeLayout
+        android:id="@+id/relative"
+        android:layout_toLeftOf="@+id/delete"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/name"
-        android:id="@+id/email"
-        android:text="email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/name"
+            android:text="Name"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/name"
+            android:id="@+id/email"
+            android:text="email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
 
 
     <ImageView
+        android:padding="5dp"
         android:id="@+id/delete"
         android:layout_marginTop="10dp"
         android:layout_alignParentRight="true"
