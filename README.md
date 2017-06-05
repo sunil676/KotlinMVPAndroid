@@ -6,7 +6,7 @@ Exploring MVP in Koltin. Used features below.
 - [RxAndroid](https://github.com/ReactiveX/RxAndroid)
 - [Retrofit](https://github.com/square/retrofit)
 - [Dagger2](https://github.com/google/dagger)
-- [Anko](https://github.com/Kotlin/anko)
+- [Anko-Sqlite](https://github.com/Kotlin/anko)
 
 
 Copyright 2017 Sunil Gupta
