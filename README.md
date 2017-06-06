@@ -8,7 +8,7 @@ Exploring MVP in Koltin. Used features below.
 - [Dagger2](https://github.com/google/dagger)
 - [Anko-Sqlite](https://github.com/Kotlin/anko)
 
-<img src="https://github.com/sunil676/KotlinMVPAndroid/blob/master/videotogif_2017.06.06_00.13.40.gif" width="300" height="550"/>
+<img src="https://github.com/sunil676/KotlinMVPAndroid/blob/master/retrofit_gif.gif" width="250" height="450"/>
 
 
 Copyright 2017 Sunil Gupta
