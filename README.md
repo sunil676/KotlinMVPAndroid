@@ -10,7 +10,8 @@ Exploring MVP in Koltin. Used features below.
 
 <img src="https://github.com/sunil676/KotlinMVPAndroid/blob/master/retrofit_gif.gif" width="250" height="450"/>
 
-Here is article link wriiten by me that help you:
+Here is article link written by me:
+
 http://mobologicplus.com/api-call-by-using-retrofit-rxjava-and-rxandroid-in-kotlin-android/
 
 Copyright 2017 Sunil Gupta
